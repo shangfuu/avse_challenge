@@ -1,0 +1,65 @@
+# root: /disk/scratch6/cvbotinh/av2022/av2022_data/
+root: /Users/cvbotinh/Documents/Cog-mhear/data/av2022_data/
+input_path: ${root}/
+metadata_dir: ${input_path}/metadata/
+
+random_seed: 0
+
+target:
+  target_speakers: ${metadata_dir}/target_speech_list.json
+  target_selection: SEQUENTIAL
+
+snr_range:
+  train: 
+    speech: [-15, 5]
+    noise: [-10, 10]
+  dev:
+    speech: [-15, 5]
+    noise: [-10, 10]
+
+interferer:
+  speech_interferers: ${metadata_dir}/masker_speech_list.json
+  noise_interferers: ${metadata_dir}/masker_noise_list.json
+  number: [1]
+  start_time_range: [0, 0]
+  end_early_time_range: [0, 0]
+
+# Instantiate_scenes
+scene_datasets:
+  train:
+    n_scenes: 76231 # total number of videos in trainset
+    scene_start_index: 1
+  dev:
+    n_scenes: 3365 # total number of videos in devset
+    scene_start_index: 76232 # train.scene_start_index + train.n_scenes
+
+datasets:
+  train:
+    metafile_path: ${metadata_dir}/scenes.train.json
+    scene_folder: ${input_path}/train/scenes/
+  dev:
+    metafile_path: ${metadata_dir}/scenes.dev.json
+    scene_folder: ${input_path}/dev/scenes/
+
+num_channels: 1
+
+fs: 16000
+
+scene_renderer:
+  train:
+    metadata:
+      scene_definitions: ${path.metadata_dir}/scenes.train.json
+    chunk_size: 12 # TOCHECK
+  dev:
+    metadata:
+      scene_definitions: ${path.metadata_dir}/scenes.dev.json
+    chunk_size: 5 # TOCHECK
+
+# disable hydra loggings
+defaults:
+  - override hydra/job_logging: disabled
+
+hydra:
+  output_subdir: Null
+  run:
+    dir: .

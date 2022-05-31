@@ -119,7 +119,7 @@ class GHAHearingAid:
             f"{self.cfg_file}_template.cfg",
         )
 
-        # Merge CH1 and CH3 files. This is the baseline configuration.
+        # Merge CH1 and CH3 files. This is the baseline_model configuration.
         # CH2 is ignored.
         fd_merged, merged_filename = tempfile.mkstemp(
             prefix="clarity-merged-", suffix=".wav"
@@ -232,7 +232,7 @@ class GHAHearingAid:
         soundfile.write(filename, x, self.fs, subtype=subtype)
 
     def create_HA_inputs(self, infile_names, merged_filename):
-        """Create input signal for baseline hearing aids."""
+        """Create input signal for baseline_model hearing aids."""
 
         if (infile_names[0][-5] != "1") or (infile_names[2][-5] != "3"):
             raise Exception("HA-input signal error: channel mismatch!")
