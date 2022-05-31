@@ -39,6 +39,10 @@ def speechweighted_snr(target, noise):
 
     # rms of the noise after speech weighted filter
     noise_rms = np.sqrt(np.mean(noise_filt ** 2))
+
+    if noise_rms==0:
+        return np.Inf
+    
     sw_snr = np.divide(targ_rms, noise_rms)
     return sw_snr
 
