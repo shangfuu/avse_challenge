@@ -1,9 +1,15 @@
+# -*- coding: utf-8 -*-
+'''
+Adapted from original code by Clarity Challenge
+https://github.com/claritychallenge/clarity
+'''
+
 import os
 import logging
 
 import hydra
 from omegaconf import DictConfig
-from clarity.data.scene_builder_avse1 import SceneBuilder, set_random_seed
+from scene_builder_avse1 import SceneBuilder, set_random_seed
 
 logger = logging.getLogger(__name__)
 

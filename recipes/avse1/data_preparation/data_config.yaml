@@ -1,5 +1,4 @@
-# root: /disk/scratch6/cvbotinh/av2022/av2022_data/
-root: /Users/cvbotinh/Documents/Cog-mhear/data/av2022_data/
+root: /tmp/avse1_data/
 input_path: ${root}/
 metadata_dir: ${input_path}/metadata/
 
