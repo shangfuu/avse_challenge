@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+'''
+Adapted from original code by Clarity Challenge
+https://github.com/claritychallenge/clarity
+'''
+
 """Code for building the scenes.json files."""
 import itertools
 import json
@@ -13,24 +19,14 @@ from tqdm import tqdm
 # A logger for this file
 log = logging.getLogger(__name__)
 
-
 # Get json output to round to 4 dp
 json.encoder.c_make_encoder = None
 
-
 class RoundingFloat(float):
     """Round a float to 4 decimal places."""
-
     __repr__ = staticmethod(lambda x: format(x, ".4f"))
 
-
 json.encoder.float = RoundingFloat
-
-# rpf file Handling
-
-N_SCENES = 10000  # Number of scenes to expect
-N_INTERFERERS = 1  # Default number of interferers to expect
-
 
 def set_random_seed(random_seed):
     if random_seed is not None:
@@ -56,14 +52,12 @@ def generate_snr(snr_range):
     """Generate a random SNR."""
     return random.uniform(*snr_range)
 
-
 # Interferer handling
 class InterfererType(Enum):
     """Enum for interferer types."""
 
     SPEECH = "speech"
     NOISE = "noise"
-
 
 def select_interferer_types(allowed_n_interferers):
     """Select the interferer types to use.
@@ -143,11 +137,11 @@ def add_interferer_to_scene_inner(
 ):
     """Randomly select interferers and add them to the given scene.
     A random number of interferers is chosen, then each is given a random type
-    selected from the possible speech, nonspeech, music types.
+    selected from the possible speech, nonspeech types.
     Interferers are then chosen from the available lists according to the type
     and also taking care to match the scenes 'dataset' field, ie. train, dev, test.
     The interferer data is supplied as a dictionary of lists of lists. The key
-    being "speech", "nonspeech", or "music", and the list of list being a partitioned
+    being "speech", "nonspeech", and the list of list being a partitioned
     list of interferers for that type.
     The idea of using a list of lists is that interferers can be split by
     subcondition and then the randomization draws equally from each subcondition,

@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+'''
+Adapted from original code by Clarity Challenge
+https://github.com/claritychallenge/clarity
+'''
+
 import os
 import scipy
 import scipy.io
@@ -5,27 +11,11 @@ import numpy as np
 
 SPEECH_FILTER = scipy.io.loadmat(
     os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "params", "speech_weight.mat"
+        os.path.dirname(os.path.abspath(__file__)), "speech_weight.mat"
     ),
     squeeze_me=True,
 )
 SPEECH_FILTER = np.array(SPEECH_FILTER["filt"])
-
-
-def better_ear_speechweighted_snr(target, noise):
-    """Calculate effective better ear SNR."""
-    if np.ndim(target) == 1:
-        # analysis left ear and right ear for single channel target
-        left_snr = speechweighted_snr(target, noise[:, 0])
-        right_snr = speechweighted_snr(target, noise[:, 1])
-    else:
-        # analysis left ear and right ear for two channel target
-        left_snr = speechweighted_snr(target[:, 0], noise[:, 0])
-        right_snr = speechweighted_snr(target[:, 1], noise[:, 1])
-    # snr is the max of left and right
-    be_snr = max(left_snr, right_snr)
-    return be_snr
-
 
 def speechweighted_snr(target, noise):
     """Apply speech weighting filter to signals and get SNR."""
@@ -42,7 +32,7 @@ def speechweighted_snr(target, noise):
 
     if noise_rms==0:
         return np.Inf
-    
+
     sw_snr = np.divide(targ_rms, noise_rms)
     return sw_snr
 

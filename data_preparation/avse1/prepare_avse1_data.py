@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+'''
+Adapted from original code by Clarity Challenge
+https://github.com/claritychallenge/clarity
+'''
+
 import os
 import json
 import logging
@@ -6,7 +12,7 @@ import hydra
 from omegaconf import DictConfig, OmegaConf
 from concurrent.futures import ProcessPoolExecutor
 
-from clarity.data.scene_renderer_avse1 import Renderer, check_scene_exists
+from scene_renderer_avse1 import Renderer, check_scene_exists
 
 def run_renderer(renderer, scene, scene_folder):
 
@@ -29,7 +35,7 @@ def prepare_data(
     """
     Generate scene data given dataset (train or dev)
     Args:
-        root_path: Clarity root path
+        root_path: AVSE root path
         metafile_path: scene metafile path
         scene_folder: folder containing generated scenes
         num_channels: number of channels
@@ -62,7 +68,6 @@ def run(cfg: DictConfig) -> None:
             cfg["num_channels"],
             cfg["fs"],
         )
-
 
 if __name__ == "__main__":
     run()
