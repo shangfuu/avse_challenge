@@ -19,7 +19,7 @@ conda activate avse
 
 # Install requirements
 pip install -r requirements.txt
-
+```
 ## Challenges
 
 Current challenge
