@@ -1,12 +1,13 @@
-# avse-challenge
-
-## Audio-Visual Speech Enhancement Challenge
+# Audio-Visual Speech Enhancement Challenge (AVSEC)
 
 Human performance in everyday noisy situations is known to be dependent upon both aural and visual senses that are contextually combined by the brain’s multi-level integration strategies. The multimodal nature of speech is well established, with listeners known to unconsciously lip read to improve the intelligibility of speech in a real noisy environment. Studies in neuroscience have shown that the visual aspect of speech has a potentially strong impact on the ability of humans to focus their auditory attention on a particular stimulus.
 
 Over the last few decades, there have been major advances in machine learning applied to speech technology made possible by Machine Learning related Challenges including CHiME, REVERB, Blizzard, Clarity and Hurricane. However, the aforementioned challenges are based on single and multi-channel audio-only processing and have not exploited the multimodal nature of speech. The aim of this first audio visual (AV) speech enhancement challenge is to bring together the wider computer vision, hearing and speech research communities to explore novel approaches to multimodal speech-in-noise processing.
 
-In this repository, you will find code to support AVSE Challenges, including baselines, toolkits, and systems from participants.
+In this repository, you will find code to support the AVSE Challenge, including the baseline and scripts for preparing the necessary data.
+
+More details can be found on the challenge website:
+https://challenge.cogmhear.org
 
 ## Installation
 
@@ -58,13 +59,21 @@ python prepare_avse1_data.py
 
 ## License
 
-Videos were derived from ...
+The videos we use are derived from the [LRS3 dataset](https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html) released under the Creative Commons BY-NC-ND 4.0 license. 
 
-Interferers were derived from three different datasets:
-- Clarity Challenge  
-- DEMAND dataset  
-- DNS Challenge second edition  
-- TED data (see license above)  
+Interferers are derived from the following datasets:
+- [Clarity Enhancement Challenge (CEC1)](https://github.com/claritychallenge/clarity/tree/main/recipes/cec1)
+Creative Commons Attribution Share Alike 4.0 International
+
+- [DEMAND](https://zenodo.org/record/1227121#.YpZHLRPMLPY):
+Creative Commons Attribution 4.0 International
+
+- [DNS Challenge second edition](https://github.com/microsoft/DNS-Challenge). 
+Only Freesound clips were selected   
+Creative Commons 0 License
+
+- [LRS3 dataset](https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html)  
+Creative Commons BY-NC-ND 4.0 license. 
 
 Data preparation scripts were adapted from original code by [Clarity Challenge](https://github.com/claritychallenge/clarity). Modifications include: target audio is extracted from video, different sampling rate (16kHz) and number of channels (one channel), and scenes simulation (additive noise only, no room impulse responses and room simulation).
 
