@@ -217,13 +217,14 @@ class Renderer:
         all_signals = np.concatenate((signal_at_ear,target_at_ear,interferer_at_ear))
         norm = np.max(np.abs(all_signals))
 
-        # Write all output files
+        # Write all audio output files
         for (filename, signal) in outputs:
             self.save_signal_16bit(filename, signal, self.fs, norm=norm)
 
-        # # Write video with mixed audio for listening tests
-        # command = f"ffmpeg -i {target_video_fn} -i {prefix}_mixed.wav -c:v copy -c:a aac -strict -2 -map 0:v:0 -map 1:a:0 {prefix}_mixed.mp4 > /dev/null 2>&1"
-        # os.system(command)
+        # Write video file without audio stream
+        output_video_fn = f"{prefix}_silent.mp4"
+        command = f"ffmpeg -v 8 -i {target_video_fn} -c:v copy -an {output_video_fn}"
+        os.system(command)
 
 def check_scene_exists(scene, output_path):
     """Checks correct dataset directory for full set of pre-existing files.
