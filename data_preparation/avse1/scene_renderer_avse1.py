@@ -162,7 +162,7 @@ class Renderer:
         target_fn_dir = os.path.dirname(target_fn)
         create_dir(target_fn_dir)
 
-        command = ("ffmpeg -v 8 -y -i %s -vn -acodec pcm_s16le -ar %s -ac 1 %s" % (target_video_fn, str(self.fs), target_fn))
+        command = ("ffmpeg -v 8 -y -i %s -vn -acodec pcm_s16le -ar %s -ac 1 %s < /dev/null" % (target_video_fn, str(self.fs), target_fn))
         os.system(command)
 
         interferer_fn = (
@@ -223,7 +223,7 @@ class Renderer:
 
         # Write video file without audio stream
         output_video_fn = f"{prefix}_silent.mp4"
-        command = f"ffmpeg -v 8 -i {target_video_fn} -c:v copy -an {output_video_fn}"
+        command = f"ffmpeg -v 8 -i {target_video_fn} -c:v copy -an {output_video_fn} < /dev/null"
         os.system(command)
 
 def check_scene_exists(scene, output_path):

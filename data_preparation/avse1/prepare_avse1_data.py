@@ -53,10 +53,10 @@ def prepare_data(
 
     futures  = []
     ncores = 20
-    executor = ProcessPoolExecutor(max_workers=ncores)
-    for scene in scenes:
-        futures.append(executor.submit(run_renderer,renderer, scene, scene_folder))
-    proc_list = [future.result() for future in tqdm(futures)]
+    with ProcessPoolExecutor(max_workers=ncores) as executor:
+        for scene in scenes:
+            futures.append(executor.submit(run_renderer,renderer, scene, scene_folder))
+        proc_list = [future.result() for future in tqdm(futures)]
 
 @hydra.main(config_path=".", config_name="data_config")
 def run(cfg: DictConfig) -> None:

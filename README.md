@@ -24,15 +24,9 @@ conda activate avse
 pip install -r requirements.txt
 ```
 
-## Challenges
-
-Current challenge
-
-- The 1st Audio-Visual Speech Enhancement Challenge (AVSE1)  
-[data_preparation](./data_preparation/avse1/)  
-[baseline](./baseline/avse1/)  
-
 ## Data preparation
+
+These scripts should be run in a unix environment and require an installed version of the [ffmpeg](https://www.ffmpeg.org) tool (minimum required version 2.6.5).
 
 1) Download necessary data:
 - target videos:  
@@ -57,24 +51,36 @@ python prepare_avse1_data.py
 
 ## Baseline
 
+Coming soon.
+
+## Challenges
+
+Current challenge
+
+- The 1st Audio-Visual Speech Enhancement Challenge (AVSE1)  
+[data_preparation](./data_preparation/avse1/)  
+[baseline](./baseline/avse1/)  
+
 ## License
 
-The videos we use are derived from the [LRS3 dataset](https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html) released under the Creative Commons BY-NC-ND 4.0 license. 
+Videos are derived from:
+- [LRS3 dataset](https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html)  
+Creative Commons BY-NC-ND 4.0 license
 
-Interferers are derived from the following datasets:
-- [Clarity Enhancement Challenge (CEC1)](https://github.com/claritychallenge/clarity/tree/main/recipes/cec1)
+Interferers are derived from:
+- [Clarity Enhancement Challenge (CEC1)](https://github.com/claritychallenge/clarity/tree/main/recipes/cec1)  
 Creative Commons Attribution Share Alike 4.0 International
 
-- [DEMAND](https://zenodo.org/record/1227121#.YpZHLRPMLPY):
+- [DEMAND](https://zenodo.org/record/1227121#.YpZHLRPMLPY):  
 Creative Commons Attribution 4.0 International
 
-- [DNS Challenge second edition](https://github.com/microsoft/DNS-Challenge). 
+- [DNS Challenge second edition](https://github.com/microsoft/DNS-Challenge).  
 Only Freesound clips were selected   
 Creative Commons 0 License
 
 - [LRS3 dataset](https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html)  
-Creative Commons BY-NC-ND 4.0 license. 
+Creative Commons BY-NC-ND 4.0 license
 
-Data preparation scripts were adapted from original code by [Clarity Challenge](https://github.com/claritychallenge/clarity). Modifications include: target audio is extracted from video, different sampling rate (16kHz) and number of channels (one channel), and scenes simulation (additive noise only, no room impulse responses and room simulation).
+Data preparation scripts were adapted from original code by [Clarity Challenge](https://github.com/claritychallenge/clarity). Modifications include: extracting target target audio from video and different settings for sampling rate (16kHz), number of channels (one channel) and scenes simulation (additive noise only, no room impulse responses and no room simulation).
 
 

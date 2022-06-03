@@ -24,11 +24,11 @@ def create_speech_maskers(datadir, metafile, wavdir):
 
     futures  = []
     ncores = 20
-    executor = ProcessPoolExecutor(max_workers=ncores)
-    for masker in maskers:
-        futures.append(executor.submit(create_masker_for_spk, datadir, wavdir, masker['speaker']))
-    proc_list = [future.result() for future in tqdm(futures)]
-            
+    with ProcessPoolExecutor(max_workers=ncores) as executor:
+        for masker in maskers:
+            futures.append(executor.submit(create_masker_for_spk, datadir, wavdir, masker['speaker']))
+        proc_list = [future.result() for future in tqdm(futures)]
+
 def create_masker_for_spk(datadir, wavdir, spk):
 
     create_dir(f"{wavdir}/{spk}/")
@@ -38,7 +38,7 @@ def create_masker_for_spk(datadir, wavdir, spk):
     for file in glob.iglob(f'{datadir}/*train*/{spk}/*.mp4'):
         basename = os.path.basename(file).split('.')[0]
         target_fn = f"{wavdir}/{spk}/{basename}.wav"
-        command = ("ffmpeg -v 8 -y -i %s -vn -acodec pcm_s16le -ar %s -ac 1 %s" % (file, str(fs), target_fn))
+        command = ("ffmpeg -v 8 -y -i %s -vn -acodec pcm_s16le -ar %s -ac 1 %s < /dev/null" % (file, str(fs), target_fn))
         os.system(command)
         x = sf.read(target_fn)[0]
         y = np.concatenate((y, x), axis=-1)
