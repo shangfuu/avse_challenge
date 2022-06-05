@@ -51,7 +51,9 @@ python prepare_avse1_data.py
 
 ## Baseline
 
-Coming soon.
+[code](./baseline_model/)
+[pretrained_model](https://drive.google.com/file/d/1Jds9Bs51DKsiJD3D1zqSISR-w4elaMrp/view?usp=sharing)
+
 
 ## Challenges
 

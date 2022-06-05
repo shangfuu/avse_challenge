@@ -1,0 +1,13 @@
+scipy==1.5.4
+torchvision==0.2.2
+decord==0.6.0
+librosa==0.8.1
+torch==1.9.0
+pandas==1.1.5
+imageio==2.5.0
+tqdm==4.62.1
+pytorch_lightning==1.4.9
+SoundFile==0.10.2
+pypesq==1.2.4
+GitPython==3.1.27
+numpy==1.22.4
