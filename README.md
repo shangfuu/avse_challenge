@@ -52,6 +52,7 @@ python prepare_avse1_data.py
 ## Baseline
 
 [code](./baseline_model/)
+
 [pretrained_model](https://drive.google.com/file/d/1Jds9Bs51DKsiJD3D1zqSISR-w4elaMrp/view?usp=sharing)
 
 
@@ -61,7 +62,7 @@ Current challenge
 
 - The 1st Audio-Visual Speech Enhancement Challenge (AVSE1)  
 [data_preparation](./data_preparation/avse1/)  
-[baseline](./baseline/avse1/)  
+[baseline](./baseline_model/)  
 
 ## License
 
