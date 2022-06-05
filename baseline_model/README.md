@@ -1,6 +1,6 @@
 # Baseline model for 1st COG-MHEAR Audio-Visual Speech Enhancement Challenge (AVSEC)
 
-[![Challenge link](https://img.shields.io/badge/arXiv-2111.09642-green.svg)](https://challenge.cogmhear.org/) 
+[Challenge link](https://challenge.cogmhear.org/) 
 
 ## Requirements
 * Python >= 3.5 (3.6 recommended)
