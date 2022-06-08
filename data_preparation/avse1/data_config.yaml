@@ -26,11 +26,11 @@ interferer:
 # Instantiate_scenes
 scene_datasets:
   train:
-    n_scenes: 76231 # total number of videos in trainset
+    n_scenes: 34525
     scene_start_index: 1
   dev:
-    n_scenes: 3365 # total number of videos in devset
-    scene_start_index: 76232 # train.scene_start_index + train.n_scenes
+    n_scenes: 3365
+    scene_start_index: 34526
 
 datasets:
   train:

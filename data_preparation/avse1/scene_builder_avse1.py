@@ -100,11 +100,11 @@ def select_random_interferer(interferers, dataset, required_samples):
         if filtered_interferer_group:
             interferer = random.choice(filtered_interferer_group)
             interferer_not_found = False
-        else:
-            if interferer_group[0]['type']=="noise":
-                print(f"No suitable interferer found in class {interferer_group[0]['class']} for required samples {required_samples}")
-            else:
-                print(f"No suitable interferer found in class {interferer_group[0]['speaker']} for required samples {required_samples}")
+        # else:
+        #     if interferer_group[0]['type']=="noise":
+        #         print(f"No suitable interferer found in class {interferer_group[0]['class']} for required samples {required_samples}")
+        #     else:
+        #         print(f"No suitable interferer found in class {interferer_group[0]['speaker']} for required samples {required_samples}")
 
     return interferer
 
