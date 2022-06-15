@@ -1,11 +1,11 @@
 # Baseline model for 1st COG-MHEAR Audio-Visual Speech Enhancement Challenge (AVSEC)
 
-[Challenge link](https://challenge.cogmhear.org/) 
+[Challenge link](https://challenge.cogmhear.org/)
 
 ## Requirements
 * Python >= 3.5 (3.6 recommended)
 
-You can install all requirements using 
+You can install all requirements using
 
 ```bash
 pip install -r requirements.txt
