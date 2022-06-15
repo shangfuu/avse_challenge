@@ -1,0 +1,21 @@
+
+root: /tmp/avse1_data/
+dataset: dev
+target: ${root}/${dataset}/scenes
+enhanced: ${root}/${dataset}/scenes
+scenes_names: ${root}/metadata/scenes.${dataset}.json
+metrics_results: ${root}/objective_evaluation/
+
+fs: 16000
+
+objective_metrics:
+  fs: ${fs}
+  mode: 'wb'
+
+defaults:
+  - override hydra/job_logging: disabled
+
+hydra:
+  output_subdir: Null
+  run:
+    dir: .

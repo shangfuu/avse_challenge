@@ -55,6 +55,21 @@ python prepare_avse1_data.py
 
 [pretrained_model](https://drive.google.com/file/d/1Jds9Bs51DKsiJD3D1zqSISR-w4elaMrp/view?usp=sharing)
 
+## Evaluation
+
+We provide a script to extract STOI and PESQ for the devset:
+```
+cd evaluation/avse1/
+python objective_evaluation.py
+```
+
+that require the following libraries:
+```
+pip install pystoi==0.3.3
+pip install pesq==0.0.4
+```
+
+Note: before running this script please change the root path defined in evaluation/avse1/config.yaml to match the path you defined in data_preparation/avse1/data_config.yaml
 
 ## Challenges
 
@@ -63,6 +78,7 @@ Current challenge
 - The 1st Audio-Visual Speech Enhancement Challenge (AVSE1)  
 [data_preparation](./data_preparation/avse1/)  
 [baseline](./baseline/avse1/)  
+[evaluation](./evaluation/avse1/)  
 
 ## License
 
