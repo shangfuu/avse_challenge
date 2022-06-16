@@ -9,6 +9,11 @@ In this repository, you will find code to support the AVSE Challenge, including 
 More details can be found on the challenge website:
 https://challenge.cogmhear.org
 
+## Announcements
+
+Any announcements about the challenge will be made in our mailing list (avse-challenge@mlist.is.ed.ac.uk).
+See [here](https://challenge.cogmhear.org/#/docs?id=announcements) on how to subscribe to it.
+
 ## Installation
 
 ```bash
@@ -31,9 +36,11 @@ These scripts should be run in a unix environment and require an installed versi
 1) Download necessary data:
 - target videos:  
 Lip Reading Sentences 3 (LRS3) Dataset  
-https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html
+https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html  
+See 'please fill this form' to obtain credentials to download the videos.
 - noise maskers and metadata:  
-https://data.cstr.ed.ac.uk/cogmhear/protected/avse1_data_v1.tar
+https://data.cstr.ed.ac.uk/cogmhear/protected/avse1_data_v2.tar  
+Please register for the AVSE challenge to obtain the download credentials: [registration form](https://challenge.cogmhear.org/#/getting-started/register)
 
 2) Set up data structure and create speech maskers (see EDIT_THIS to change local paths):
 ```bash
