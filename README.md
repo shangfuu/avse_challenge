@@ -33,7 +33,7 @@ These scripts should be run in a unix environment and require an installed versi
 Lip Reading Sentences 3 (LRS3) Dataset  
 https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html
 - noise maskers and metadata:  
-https://data.cstr.ed.ac.uk/cogmhear/protected/avse1_data.tar
+https://data.cstr.ed.ac.uk/cogmhear/protected/avse1_data_v1.tar
 
 2) Set up data structure and create speech maskers (see EDIT_THIS to change local paths):
 ```bash
