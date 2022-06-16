@@ -1,4 +1,4 @@
-# Baseline model for 1st COG-MHEAR Audio-Visual Speech Enhancement Challenge (AVSEC)
+# Baseline model for 1st COG-MHEAR Audio-Visual Speech Enhancement Challenge (AVSE)
 
 [Challenge link](https://challenge.cogmhear.org/)
 
