@@ -64,7 +64,10 @@ python prepare_avse1_data.py
 
 ## Evaluation
 
-We provide a script to extract STOI and PESQ for the devset:
+We provide a script to extract STOI and PESQ for the devset.
+
+Note: before running this script please edit the paths and file name formats defined in evaluation/avse1/config.yaml (see EDIT_THIS).
+
 ```
 cd evaluation/avse1/
 python objective_evaluation.py
@@ -75,8 +78,6 @@ that require the following libraries:
 pip install pystoi==0.3.3
 pip install pesq==0.0.4
 ```
-
-Note: before running this script please change the root path defined in evaluation/avse1/config.yaml to match the path you defined in data_preparation/avse1/data_config.yaml
 
 ## Challenges
 

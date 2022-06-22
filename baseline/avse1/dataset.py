@@ -37,7 +37,7 @@ test_transform = get_transform()
 class TEDDataset(Dataset):
     def __init__(self, data_root, scenes_root, shuffle=True, seed=SEED, subsample=1, mask_type="IRM",
                  add_channel_dim=True, a_only=True, return_stft=False,
-                 meta_data=None, clipped_batch=True):
+                 meta_data=None, clipped_batch=True, sample_items=True):
         self.meta = {}
         with open(meta_data) as f:
             data = json.load(f)
@@ -68,6 +68,7 @@ class TEDDataset(Dataset):
         self.seed = seed
         self.window = "hann"
         self.fading = False
+        self.sample_items = sample_items
 
     @property
     def build_files_list(self):
@@ -86,7 +87,10 @@ class TEDDataset(Dataset):
 
     def __getitem__(self, idx):
         data = {}
-        clean_file, noise_file, noisy_file, mp4_file = random.sample(self.files_list, 1)[0]
+        if self.sample_items:
+            clean_file, noise_file, noisy_file, mp4_file = random.sample(self.files_list, 1)[0]
+        else:
+            clean_file, noise_file, noisy_file, mp4_file = self.files_list[idx]
         if self.a_only:
             if self.return_stft:
                 data["noisy_audio_spec"], data["mask"], data["clean"], data["noisy_stft"] = self.get_data(clean_file,
@@ -105,6 +109,8 @@ class TEDDataset(Dataset):
             else:
                 data["noisy_audio_spec"], data["mask"], data["lip_images"] = self.get_data(clean_file, noise_file,
                                                                                            noisy_file, mp4_file)
+
+        data['scene'] = clean_file.replace(self.scenes_root,"").replace("_target.wav","").replace("/","")
 
         return data
 
@@ -172,7 +178,7 @@ class TEDDataModule(LightningDataModule):
                                       meta_data=join(METADATA_ROOT, "scenes.dev.json"))
         self.test_dataset = TEDDataset(LRS3_ROOT, join(DATA_ROOT, "dev/scenes"), mask_type=mask,
                                        add_channel_dim=add_channel_dim, a_only=a_only, return_stft=True,
-                                       meta_data=join(METADATA_ROOT, "scenes.dev.json"), clipped_batch=False)
+                                       meta_data=join(METADATA_ROOT, "scenes.dev.json"), clipped_batch=False, sample_items=False)
         self.batch_size = batch_size
 
     def train_dataloader(self):

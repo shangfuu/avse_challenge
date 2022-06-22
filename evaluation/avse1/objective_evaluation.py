@@ -60,23 +60,23 @@ def run_metrics(scene, enhanced, target, cfg):
     # Retrieve the scene name
     scene_name = scene["scene"]
 
-    enh_file = os.path.join(enhanced, f"{scene_name}_mixed.wav")
-    tgt_file = os.path.join(target, f"{scene_name}_target.wav")
+    enh_file = os.path.join(enhanced, f"{scene_name}{cfg['enhanced_suffix']}.wav")
+    tgt_file = os.path.join(target, f"{scene_name}{cfg['target_suffix']}.wav")
     scene_metrics_file = os.path.join(cfg["metrics_results"], f"{scene_name}.csv")
 
     # Skip processing with files dont exist or metrics have already been computed
     if ( not os.path.isfile(enh_file) ) or ( not os.path.isfile(tgt_file) ) or ( os.path.isfile(scene_metrics_file)) :
         return
 
-    # Read enhanced/mixed signal, change "_mixed" to your file name structure
+    # Read enhanced signal
     enh = read_audio(enh_file)
-    # Read clean/target signal, change "_target" to your file name structure
+    # Read clean/target signal
     clean = read_audio(tgt_file)
 
     # Check that both files are the same length, otherwise computing the metrics results in an error
     if len(clean) != len(enh):
         raise Exception(
-            f"Wav files {scene_name}_mixed.wav and {scene_name}_target.wav should have the same length"
+            f"Wav files {enh_file} and {tgt_file} should have the same length"
         )
 
     # Compute metrics
@@ -91,8 +91,8 @@ def run_metrics(scene, enhanced, target, cfg):
 @hydra.main(config_path=".", config_name="config")
 def compute_metrics(cfg: DictConfig) -> None:
     # paths to data
-    enhanced = os.path.join(cfg["target"])
-    target = os.path.join(cfg["enhanced"])
+    enhanced = os.path.join(cfg["enhanced"])
+    target = os.path.join(cfg["target"])
     # json file with info about scenes
     scenes_eval = json.load(open(cfg["scenes_names"]))
     # csv file to store metrics

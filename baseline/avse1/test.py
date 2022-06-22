@@ -49,12 +49,15 @@ def main(args):
     loss = 0
     with torch.no_grad():
         for i in tqdm(range(len(test_dataset))):
-            filename = f"{str(i).zfill(5)}.wav"
+
+            data = test_dataset[i]
+
+            filename = f"{data['scene']}.wav"
+            # filename = f"{str(i).zfill(5)}.wav"
             clean_path = join(clean_root, filename)
             noisy_path = join(noisy_root, filename)
             enhanced_path = join(enhanced_root, filename)
 
-            data = test_dataset[i]
             if not isfile(clean_path):
                 sf.write(clean_path, data["clean"], samplerate=sampling_rate)
             if not isfile(noisy_path):
