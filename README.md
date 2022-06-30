@@ -25,13 +25,16 @@ cd avse-challenge
 conda create --name avse python=3.8
 conda activate avse
 
+# Install ffmpeg 2.8
+conda install -c rmg ffmpeg
+
 # Install requirements
 pip install -r requirements.txt
 ```
 
 ## Data preparation
 
-These scripts should be run in a unix environment and require an installed version of the [ffmpeg](https://www.ffmpeg.org) tool (minimum required version 2.6.5).
+These scripts should be run in a unix environment and require an installed version of the [ffmpeg](https://www.ffmpeg.org) tool (required version 2.8; see Installation for the correct installation command).
 
 1) Download necessary data:
 - target videos:  
