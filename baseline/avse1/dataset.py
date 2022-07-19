@@ -13,6 +13,7 @@ import torchvision.transforms as transforms
 from decord import VideoReader
 from decord import cpu
 from pytorch_lightning import LightningDataModule
+from scipy.io import wavfile
 from torch.utils.data import Dataset
 from tqdm import tqdm
 
@@ -35,7 +36,7 @@ test_transform = get_transform()
 
 
 class TEDDataset(Dataset):
-    def __init__(self, data_root, scenes_root, shuffle=True, seed=SEED, subsample=1, mask_type="IRM",
+    def __init__(self, scenes_root, shuffle=True, seed=SEED, subsample=1, mask_type="IRM",
                  add_channel_dim=True, a_only=True, return_stft=False,
                  meta_data=None, clipped_batch=True, sample_items=True):
         self.meta = {}
@@ -45,7 +46,6 @@ class TEDDataset(Dataset):
                 self.meta[d["scene"]] = d["target"]["name"]
         self.clipped_batch = clipped_batch
         self.scenes_root = scenes_root
-        self.data_root = data_root
         self.return_stft = return_stft
         self.a_only = a_only
         self.add_channel_dim = add_channel_dim
@@ -78,7 +78,7 @@ class TEDDataset(Dataset):
                 files_list.append((join(self.scenes_root, file),
                                    join(self.scenes_root, file.replace("target", "interferer")),
                                    join(self.scenes_root, file.replace("target", "mixed")),
-                                   join(self.data_root, self.meta[file.replace("_target.wav", "")] + ".mp4")
+                                   join(self.scenes_root, file.replace("_target.wav", "_silent.mp4")),
                                    ))
         return files_list
 
@@ -122,14 +122,17 @@ class TEDDataset(Dataset):
         else:
             return np.abs(audio_stft).astype(np.float32)
 
+    def load_wav(self, wav_path):
+        return wavfile.read(wav_path)[1].astype(np.float32) / (2 ** 15)
+
     def get_data(self, clean_file, noise_file, noisy_file, mp4_file):
-        noisy, _ = librosa.load(noisy_file, sr=None)
-        clean, _ = librosa.load(clean_file, sr=None)
+        noisy = self.load_wav(noisy_file)
+        clean = self.load_wav(clean_file)
         # noise, _ = librosa.load(noise_file, sr=None)
         if self.clipped_batch:
             if clean.shape[0] > 48000:
                 clip_idx = random.randint(0, clean.shape[0] - 48000)
-                video_idx = max(int((clip_idx / 16000) * 25) - 1, 0)
+                video_idx = max(int((clip_idx / 16000) * 25) - 2, 0)
                 clean = clean[clip_idx:clip_idx + 48000]
                 noisy = noisy[clip_idx:clip_idx + 48000]
                 # noise = noise[clip_idx:clip_idx + 48000]
@@ -170,13 +173,13 @@ class TEDDataset(Dataset):
 class TEDDataModule(LightningDataModule):
     def __init__(self, batch_size=16, mask="IRM", add_channel_dim=True, a_only=False):
         super(TEDDataModule, self).__init__()
-        self.train_dataset = TEDDataset(LRS3_ROOT, join(DATA_ROOT, "train/scenes"), mask_type=mask,
+        self.train_dataset = TEDDataset(join(DATA_ROOT, "train/scenes"), mask_type=mask,
                                         add_channel_dim=add_channel_dim, a_only=a_only
                                         , meta_data=join(METADATA_ROOT, "scenes.train.json"))
-        self.val_dataset = TEDDataset(LRS3_ROOT, join(DATA_ROOT, "dev/scenes"), mask_type=mask,
+        self.val_dataset = TEDDataset(join(DATA_ROOT, "dev/scenes"), mask_type=mask,
                                       add_channel_dim=add_channel_dim, a_only=a_only,
                                       meta_data=join(METADATA_ROOT, "scenes.dev.json"))
-        self.test_dataset = TEDDataset(LRS3_ROOT, join(DATA_ROOT, "dev/scenes"), mask_type=mask,
+        self.test_dataset = TEDDataset(join(DATA_ROOT, "dev/scenes"), mask_type=mask,
                                        add_channel_dim=add_channel_dim, a_only=a_only, return_stft=True,
                                        meta_data=join(METADATA_ROOT, "scenes.dev.json"), clipped_batch=False, sample_items=False)
         self.batch_size = batch_size
@@ -195,12 +198,9 @@ class TEDDataModule(LightningDataModule):
 
 if __name__ == '__main__':
 
-    dataset = TEDDataset(data_root=LRS3_ROOT, scenes_root=join(DATA_ROOT, "train/scenes"),
-                         mask_type="mag", meta_data="/home/mgo/data/TED/metadata/scenes.train.json",
+    dataset = TEDDataset(scenes_root=join(DATA_ROOT, "train/scenes"),
+                         mask_type="mag", meta_data=join(METADATA_ROOT, "scenes.train.json"),
                          a_only=False, return_stft=True)
     print(dataset.files_list[:2])
-    for i in tqdm(range(len(dataset))):
+    for i in tqdm(range(len(dataset)), ascii=True):
         data = dataset[i]
-        for k, v in data.items():
-            print(k, v.shape, np.min(v), np.max(v), np.mean(v))
-        break
