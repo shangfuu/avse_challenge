@@ -63,7 +63,9 @@ python prepare_avse1_data.py
 
 [code](./baseline/avse1/)
 
-[pretrained_model](https://drive.google.com/file/d/1Jds9Bs51DKsiJD3D1zqSISR-w4elaMrp/view?usp=sharing)
+[pretrained_model](https://data.cstr.ed.ac.uk/cogmhear/protected/avse1_baseline.ckpt)
+
+The credentials to download the pretrained model are the same as the ones used to download the noise maskers and the metadata.
 
 ## Evaluation
 
