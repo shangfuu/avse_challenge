@@ -27,10 +27,10 @@ def main(args):
 
     if args.a_only:
         model = AVNet((None, audiofeat_net, fusion_net), args.loss, a_only=args.a_only,
-                      val_dataset=datamodule.test_dataset)
+                      val_dataset=datamodule.dev_dataset)
     else:
         model = AVNet((visual_net, audiofeat_net, fusion_net), args.loss, a_only=args.a_only,
-                      val_dataset=datamodule.test_dataset)
+                      val_dataset=datamodule.dev_dataset)
     trainer = Trainer.from_argparse_args(args, default_root_dir=args.log_dir, callbacks=[checkpoint_callback])
     if args.tune:
         trainer.tune(model, datamodule)

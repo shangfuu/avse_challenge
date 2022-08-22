@@ -26,7 +26,14 @@ def main(args):
     makedirs(noisy_root, exist_ok=True)
     makedirs(enhanced_root, exist_ok=True)
     datamodule = TEDDataModule(batch_size=args.batch_size, mask=args.mask, a_only=args.a_only)
-    test_dataset = datamodule.test_dataset
+    if args.dev_set and args.test_set:
+        raise RuntimeError("Select either dev set or test set")
+    elif args.dev_set:
+        dataset = datamodule.dev_dataset
+    elif args.test_set:
+        dataset = datamodule.test_dataset
+    else:
+        raise RuntimeError("Select one of dev set and test set")
     print(args.oracle, not args.oracle)
     if not args.oracle:
         audiofeat_net = build_audiofeat_net(a_only=args.a_only)
@@ -43,14 +50,14 @@ def main(args):
             print("Model loaded")
         else:
             raise FileNotFoundError("Cannot load model weights: {}".format(args.ckpt_path))
-        model.to("cuda:0")
+        if not args.cpu:
+            model.to("cuda:0")
         model.eval()
     i = 0
-    loss = 0
     with torch.no_grad():
-        for i in tqdm(range(len(test_dataset))):
+        for i in tqdm(range(len(dataset))):
 
-            data = test_dataset[i]
+            data = dataset[i]
 
             filename = f"{data['scene']}.wav"
             # filename = f"{str(i).zfill(5)}.wav"
@@ -58,11 +65,11 @@ def main(args):
             noisy_path = join(noisy_root, filename)
             enhanced_path = join(enhanced_root, filename)
 
-            if not isfile(clean_path):
+            if not isfile(clean_path) and not args.test_set:
                 sf.write(clean_path, data["clean"], samplerate=sampling_rate)
             if not isfile(noisy_path):
                 noisy = librosa.istft(data["noisy_stft"].T, win_length=window_size, hop_length=window_shift,
-                                      window="hann")
+                                      window="hann", length=len(data["clean"]))
                 sf.write(noisy_path, noisy, samplerate=sampling_rate)
             if not isfile(enhanced_path):
                 if args.oracle:
@@ -75,21 +82,23 @@ def main(args):
                         inputs["lip_images"] = torch.from_numpy(data["lip_images"][np.newaxis, ...]).to(model.device)
                     pred = model(inputs).cpu()
                     pred_mag = pred.numpy()[0][0]
-                    loss += F.l1_loss(pred[0], torch.from_numpy(data["mask"]))
                 noisy_phase = np.angle(data["noisy_stft"])
                 estimated = pred_mag * (np.cos(noisy_phase) + 1.j * np.sin(noisy_phase))
                 estimated_audio = librosa.istft(estimated.T, win_length=window_size, hop_length=window_shift,
-                                                window="hann")
+                                                window="hann", length=len(data["clean"]))
                 sf.write(enhanced_path, estimated_audio, samplerate=sampling_rate)
 
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument("--a_only", type=str2bool, required=True)
+    parser.add_argument("--a_only", type=str2bool, required=False)
     parser.add_argument("--ckpt_path", type=str, required=True)
     parser.add_argument("--oracle", type=str2bool, required=False)
     parser.add_argument("--save_root", type=str, required=True)
     parser.add_argument("--model_uid", type=str, required=True)
+    parser.add_argument("--dev_set", type=str2bool, required=True)
+    parser.add_argument("--test_set", type=str2bool, required=False)
+    parser.add_argument("--cpu", type=str2bool, required=False, help="Evaluate model on CPU")
     parser.add_argument("--mask", type=str, default="mag")
     parser.add_argument("--batch_size", type=int, default=16)
     parser.add_argument("--loss", type=str, default="l1")

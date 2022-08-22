@@ -19,6 +19,5 @@ num_frames = int(25 * (max_utterance_length / 16000))
 num_stft_frames = 376#int((max_utterance_length - window_size + window_shift) / window_shift)
 
 nb_channels, img_height, img_width = 1, img_rows, img_cols
-DATA_ROOT = "/home/mgo/data/TED/"
-LRS3_ROOT = "/media/mgo/Seagate/datasets/LRS3TED/"
-METADATA_ROOT = "/home/mgo/data/TED/metadata/"
+DATA_ROOT = "/home/mgo/Documents/data/avse1_data/"
+METADATA_ROOT = "/home/mgo/Documents/data/avse1_data/metadata/"
