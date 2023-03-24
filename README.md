@@ -98,7 +98,7 @@ Current challenge
 ## License
 
 Videos are derived from:
-- [LRS3 dataset](https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html)  
+- [LRS3 dataset](https://mm.kaist.ac.kr/datasets/lip_reading/)  
 Creative Commons BY-NC-ND 4.0 license
 
 Interferers are derived from:
@@ -112,7 +112,7 @@ Creative Commons Attribution 4.0 International
 Only Freesound clips were selected   
 Creative Commons 0 License
 
-- [LRS3 dataset](https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html)  
+- [LRS3 dataset](https://mm.kaist.ac.kr/datasets/lip_reading/)  
 Creative Commons BY-NC-ND 4.0 license
 
 Data preparation scripts were adapted from original code by [Clarity Challenge](https://github.com/claritychallenge/clarity). Modifications include: extracting target target audio from video and different settings for sampling rate (16kHz), number of channels (one channel) and scenes simulation (additive noise only, no room impulse responses and no room simulation).
