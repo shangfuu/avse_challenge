@@ -39,8 +39,8 @@ These scripts should be run in a unix environment and require an installed versi
 1) Download necessary data:
 - target videos:  
 Lip Reading Sentences 3 (LRS3) Dataset  
-https://www.robots.ox.ac.uk/~vgg/data/lip_reading/lrs3.html  
-See 'please fill this form' to obtain credentials to download the videos.
+https://mm.kaist.ac.kr/datasets/lip_reading/
+Follow the instructions on the website to obtain credentials to download the videos.
 - noise maskers and metadata:  
 https://data.cstr.ed.ac.uk/cogmhear/protected/avse2_data.tar  
 Please register for the AVSE challenge to obtain the download credentials: [registration form](https://challenge.cogmhear.org/#/getting-started/register)
