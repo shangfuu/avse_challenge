@@ -40,6 +40,7 @@ These scripts should be run in a unix environment and require an installed versi
 - target videos:  
 Lip Reading Sentences 3 (LRS3) Dataset  
 https://mm.kaist.ac.kr/datasets/lip_reading/
+
 Follow the instructions on the website to obtain credentials to download the videos.
 - noise maskers and metadata:  
 https://data.cstr.ed.ac.uk/cogmhear/protected/avse2_data.tar  
