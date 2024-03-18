@@ -119,6 +119,12 @@ Creative Commons 0 License
 - [LRS3 dataset](https://mm.kaist.ac.kr/datasets/lip_reading/)  
 Creative Commons BY-NC-ND 4.0 license
 
+- [MedleyDB audio](https://medleydb.weebly.com/)
+The dataset is licensed under CC BY-NC-SA 4.0.
+
+- [ESC-50 Dataset for Environmental Sound Classification](https://github.com/karolpiczak/ESC-50)
+Creative Commons Attribution-NonCommercial license
+
 Data preparation scripts were adapted from original code by [Clarity Challenge](https://github.com/claritychallenge/clarity). Modifications include: extracting target target audio from video and different settings for sampling rate (16kHz), number of channels (one channel) and scenes simulation (additive noise only, no room impulse responses and no room simulation).
 
 
