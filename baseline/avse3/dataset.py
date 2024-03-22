@@ -160,18 +160,3 @@ class AVSEChallengeDataModule:
         return torch.utils.data.DataLoader(self.dev_dataset_batch, batch_size=self.batch_size, num_workers=4,
                                            pin_memory=True,
                                            persistent_workers=True)
-
-
-if __name__ == '__main__':
-
-    dataset = AVSEChallengeDataModule(data_root="/Users/mandargogate/Data/avse_challenge",
-                                      batch_size=1, time_domain=True).dev_dataset_batch
-    for i in tqdm(range(len(dataset)), ascii=True):
-        data = dataset[i]
-        print(data[1].shape)
-        for k, v in data[0].items():
-            try:
-                print(k, v.shape)
-            except:
-                print(k, v)
-        break

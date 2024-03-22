@@ -34,8 +34,8 @@ def main(args):
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-    parser.add_argument("--weight_path", type=str, default="/Users/mandargogate/Backup/models/avsec3-baseline/best_dev.weights.h5", help="Path to model weights")
+    parser.add_argument("--weight_path", type=str, required=True, help="Path to model weights")
     parser.add_argument("--save_root", type=str, default="./enhanced", help="Root directory to save enhanced audio")
-    parser.add_argument("--data_root", type=str, default="/Users/mandargogate/Data/avse_challenge", help="Root directory of dataset")
+    parser.add_argument("--data_root", type=str, required=True, help="Root directory of dataset")
     args = parser.parse_args()
     main(args)
