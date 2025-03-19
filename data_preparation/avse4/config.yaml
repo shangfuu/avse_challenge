@@ -1,6 +1,5 @@
 path:
   root: /tmp/avsec4/
-#  metadata_dir: ${path.root}/metadata/clarity_metadata #${path.root}/metadata/avsec4_mockup_metadata
   metadata_dir: ${path.root}/metadata/
 
 
