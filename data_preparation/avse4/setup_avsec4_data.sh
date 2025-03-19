@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # working directory where data will be stored
-root=/tmp/ # EDIT_THIS
+root=/tmp/avsec4/ # EDIT_THIS
 
 # path to LRS3 data (pretrain and trainval directories should be located there)
 LRS3=/tmp/LRS3/  # EDIT_THIS

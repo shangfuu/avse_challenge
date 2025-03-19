@@ -1,7 +1,7 @@
 path:
-  root: /disk/data1/aaldana/avsec4/
+  root: /tmp/avsec4/
 #  metadata_dir: ${path.root}/metadata/clarity_metadata #${path.root}/metadata/avsec4_mockup_metadata
-  metadata_dir: ${path.root}/avsec4_data/metadata/
+  metadata_dir: ${path.root}/metadata/
 
 
 random_seed: 0
@@ -10,32 +10,32 @@ shuffle_rooms: False
 # Build rooms
 room_datasets:
   train:
-    rpf_location: ${path.root}/avsec4_data/train/rooms/rpf
+    rpf_location: ${path.root}/train/rooms/rpf
     n_interferers: 3
-    n_rooms: 6000 #6000
+    n_rooms: 6000
     start_room: 1
   dev:
-    rpf_location: ${path.root}/avsec4_data/dev/rooms/rpf
+    rpf_location: ${path.root}/dev/rooms/rpf
     n_interferers: 3
-    n_rooms: 2500 #2500
+    n_rooms: 2500
     start_room: 6001
 
 # Instantiate_scenes
 scene_datasets:
   train:
-    n_scenes: 34525 #6000
+    n_scenes: 34525
     room_selection: SEQUENTIAL
     scene_start_index: 1
   dev:
-    n_scenes: 3365 #2500
+    n_scenes: 3365
     room_selection: SEQUENTIAL
     scene_start_index: 34526
 
 target:
-  target_speakers: ${path.metadata_dir}/target_speech_list.json #target_speech_list_under_10s.json #${path.metadata_dir}/ #${path.metadata_dir}/target_speech_list.json
+  target_speakers: ${path.metadata_dir}/target_speech_list.json
   target_selection: SEQUENTIAL
-  pre_samples_range: [0, 0] #[0, 4000] # [16000, 48000] #[66150, 88200]
-  post_samples_range: [0, 0] #[16000, 16000] #[44100, 44100]
+  pre_samples_range: [0, 0]
+  post_samples_range: [0, 0]
 
 snr_range:
   train: [-10, 10]
@@ -50,7 +50,7 @@ interferer:
   end_early_time_range: [0, 0]
 
 listener:
-  heads: ["BuK", "DADEC", "KEMAR", "VP_E1",  "VP_E2", "VP_E4", "VP_E5", "VP_E6", "VP_E7", "VP_E8", "VP_E9", "VP_E11", "VP_E12", "VP_E13", "VP_N1", "VP_N3", "VP_N4", "VP_N5", "VP_N6"]
+  heads: ["BuK", "DADEC", "KEMAR", "VP_E1", "VP_E2", "VP_E4", "VP_E5", "VP_E6", "VP_E7", "VP_E8", "VP_E9", "VP_E11", "VP_E12", "VP_E13", "VP_N1", "VP_N3", "VP_N4", "VP_N5", "VP_N6"]
   channels: ["ED"]
   #head rotation parameters are not used in AVSEC
   # parameters all in units of samples or degrees
@@ -73,25 +73,25 @@ render_n_chunk_to_process: 500 #50  # i.e. (12 train + 5 dev) * 10 scenes to ren
 scene_renderer:
   train:
     paths:
-      hoairs: ${path.root}/avsec4_data/train/rooms/HOA_IRs_16k
-      hrirs: ${path.root}/avsec4_data/hrir/HRIRs_MAT
-      scenes: ${path.root}/avsec4_data/train/scenes
-      targets: ${path.root}/avsec4_data/train/targets
-      videos: ${path.root}/avsec4_data/train/targets_video
-      interferers: ${path.root}/avsec4_data/train/interferers/{type}
+      hoairs: ${path.root}/train/rooms/HOA_IRs_16k
+      hrirs: ${path.root}/hrir/HRIRs_MAT
+      scenes: ${path.root}/train/scenes
+      targets: ${path.root}/train/targets
+      videos: ${path.root}/train/targets_video
+      interferers: ${path.root}/train/interferers/{type}
     metadata:
       room_definitions: ${path.metadata_dir}/rooms.train.json
-      scene_definitions: ${path.metadata_dir}/scenes.train.json #scenes.train.json
+      scene_definitions: ${path.metadata_dir}/scenes.train.json
       hrir_metadata: ${path.metadata_dir}/hrir_data.json
     chunk_size: 70 #12
   dev:
     paths:
-      hoairs: ${path.root}/avsec4_data/dev/rooms/HOA_IRs_16k
-      hrirs: ${path.root}/avsec4_data/hrir/HRIRs_MAT
-      scenes: ${path.root}/avsec4_data/dev/scenes
-      targets: ${path.root}/avsec4_data/dev/targets
-      videos: ${path.root}/avsec4_data/dev/targets_video
-      interferers: ${path.root}/avsec4_data/dev/interferers/{type}
+      hoairs: ${path.root}/dev/rooms/HOA_IRs_16k
+      hrirs: ${path.root}/hrir/HRIRs_MAT
+      scenes: ${path.root}/dev/scenes
+      targets: ${path.root}/dev/targets
+      videos: ${path.root}/dev/targets_video
+      interferers: ${path.root}/dev/interferers/{type}
     metadata:
       room_definitions: ${path.metadata_dir}/rooms.dev.json
       scene_definitions: ${path.metadata_dir}/scenes.dev.json
@@ -103,7 +103,7 @@ render_params:
   ambisonic_order: 6
   equalise_loudness: False
   reference_channel: 0
-  channel_norms: [6.0]
+  channel_norms: [6.0] #not used in AVSEC
 hydra:
   run:
     dir: .
