@@ -46,10 +46,9 @@ Follow the instructions on the website to obtain credentials to download the vid
 https://data.cstr.ed.ac.uk/cogmhear/protected/avsec3_data.tar  
 Please register for the AVSE challenge to obtain the download credentials: [registration form](https://challenge.cogmhear.org/#/getting-started/register)
 
-Noise maskers and metadata (AVSEC-1 and AVSEC-2):
-https://data.cstr.ed.ac.uk/cogmhear/protected/avse2_data.tar
+Noise maskers and metadata (AVSEC-1 and AVSEC-2): https://data.cstr.ed.ac.uk/cogmhear/protected/avse2_data.tar
 
-**Note that this dataset is identical to that used in the 1st edition of the Challenge, <avse1_data_v2.tar>**
+**Note that the AVSEC-2 dataset is identical to that used in the 1st edition of the Challenge, <avse1_data_v2.tar>**
 
 2) Set up data structure and create speech maskers (see EDIT_THIS to change local paths):
 ```bash

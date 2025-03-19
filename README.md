@@ -15,14 +15,20 @@ Any announcements about the challenge will be made in our mailing list (avse-cha
 See [here](https://challenge.cogmhear.org/#/docs?id=announcements) on how to subscribe to it.
 
 ## Installation
+*Instructions to build data from previous AVSEC{1,2,3} editions are [here](data_preparation/avse1/)*
+
+**We are currently running the fourth edition of AVSEC**
+
+Follow instructions below to build the **AVSEC-4** dataset
 
 ```bash
+
 # Clone repository
 git clone https://github.com/cogmhear/avse-challenge.git
-cd avse-challenge
+cd avse_challenge
 
 # Create & activate environment with conda, see https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html
-conda create --name avse python=3.8
+conda create --name avse python=3.9
 conda activate avse
 
 # Install ffmpeg 2.8
@@ -31,7 +37,6 @@ conda install -c rmg ffmpeg
 # Install requirements
 pip install -r requirements.txt
 ```
-
 ## Data preparation
 
 These scripts should be run in a unix environment and require an installed version of the [ffmpeg](https://www.ffmpeg.org) tool (required version 2.8; see Installation for the correct installation command).
@@ -42,27 +47,33 @@ Lip Reading Sentences 3 (LRS3) Dataset
 https://mm.kaist.ac.kr/datasets/lip_reading/
 
 Follow the instructions on the website to obtain credentials to download the videos.
-- noise maskers and metadata (AVSEC-3):
-https://data.cstr.ed.ac.uk/cogmhear/protected/avsec3_data.tar  
+
+- noise maskers and metadata (AVSEC-4):
+https://data.cstr.ed.ac.uk/cogmhear/protected/avsec4_data.tar  
 Please register for the AVSE challenge to obtain the download credentials: [registration form](https://challenge.cogmhear.org/#/getting-started/register)
 
-Noise maskers and metadata (AVSEC-1 and AVSEC-2):
-https://data.cstr.ed.ac.uk/cogmhear/protected/avse2_data.tar
+Noise maskers and metadata of previous editions are available [here](data_preparation/avse1/README.md)
 
-**Note that this dataset is identical to that used in the 1st edition of the Challenge, <avse1_data_v2.tar>**
+- room simulation data, impulse responses and HRIRs from the [Clarity Challenge](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2) and [OlHeaD-HRTF Database](https://uol.de/mediphysik/downloads/hearingdevicehrtfs) :
+ https://data.cstr.ed.ac.uk/cogmhear/protected/avsec4_data.tar 
+
+<p>AVSEC-4 uses a subset of data released by the Clarity Enhancement Challenge 2 and a subset of HRIRs of the OlHeaD-HRTF Database from Oldenburg University. 
+Download the tar file above to obtain HRIRs, room simulation data and resampled (16000 Hz) impulse responses. </p>
+
 
 2) Set up data structure and create speech maskers (see EDIT_THIS to change local paths):
 ```bash
-cd data_preparation/avse1
-./setup_avse1_data.sh 
+cd data_preparation/avse4
+./setup_avsec4_data.sh 
 ```
 
-3) Change root path defined in [data_preparation/avse1/data_config.yaml](data_preparation/avse1/data_config.yaml) to the location of the data.
+3) Change root path defined in [data_preparation/avse4/config.yaml](data_preparation/avse4/config.yaml) to the location of the data.
 
 4) Prepare noisy data:
 ```bash
-cd data_preparation/avse1
-python prepare_avse1_data.py 
+cd data_preparation/avse4
+python build_scenes.py
+python render_scenes.py
 ```
 
 ## Baseline
