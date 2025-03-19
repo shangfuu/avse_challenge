@@ -57,7 +57,7 @@ Noise maskers and metadata of previous editions are available [here](data_prepar
 - room simulation data, impulse responses and HRIRs from the [Clarity Challenge](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2) and [OlHeaD-HRTF Database](https://uol.de/mediphysik/downloads/hearingdevicehrtfs) :
  https://data.cstr.ed.ac.uk/cogmhear/protected/clarity_cec2_data.tar 
 
-<p>AVSEC-4 uses a subset of data released by the Clarity Enhancement Challenge 2 and a subset of HRIRs of the OlHeaD-HRTF Database from Oldenburg University. 
+<p>AVSEC-4 uses a subset of the data released by the Clarity Enhancement Challenge 2 and a subset of HRIRs of the OlHeaD-HRTF Database from Oldenburg University. 
 Download the tar file above to obtain HRIRs, room simulation data and resampled (16000 Hz) impulse responses. </p>
 
 
@@ -74,6 +74,36 @@ cd data_preparation/avse4
 cd data_preparation/avse4
 python build_scenes.py
 python render_scenes.py
+```
+
+#### Data structure
+
+```bash
+└── avsec4
+    ├── dev
+    │   ├── interferers
+    │   ├── rooms 
+    │   │   ├─ ac
+    │   │   ├─ HOA_IRs_16k
+    │   │   ├─ rpf
+    │   ├── scenes
+    │   ├── targets
+    │   └── targets_video 
+    ├── hrir
+    │    ├─ HRIRs_MAT
+    ├── maskers_music
+    ├── maskers_noise
+    ├── maskers_speech
+    ├── metadata
+    └── train
+    │    ├── interferers
+    │    ├── rooms
+    │    │    ├─ ac
+    │    │    ├─ HOA_IRs_16k
+    │    │    ├─ rpf 
+    │    ├── scenes
+    │    ├── targets
+    │    └── targets_video 
 ```
 
 ## Baseline
