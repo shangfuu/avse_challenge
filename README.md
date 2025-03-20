@@ -49,13 +49,13 @@ https://mm.kaist.ac.kr/datasets/lip_reading/
 Follow the instructions on the website to obtain credentials to download the videos.
 
 - noise maskers and metadata (AVSEC-4):
-https://data.cstr.ed.ac.uk/cogmhear/protected/avsec4_data.tar  
+https://data.cstr.ed.ac.uk/cogmhear/protected/avsec4_data.tar  [4.1GB]
 Please register for the AVSE challenge to obtain the download credentials: [registration form](https://challenge.cogmhear.org/#/getting-started/register)
 
 Noise maskers and metadata of previous editions are available [here](data_preparation/avse1/README.md)
 
 - room simulation data, impulse responses and HRIRs from the [Clarity Challenge](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2) and [OlHeaD-HRTF Database](https://uol.de/mediphysik/downloads/hearingdevicehrtfs) :
- https://data.cstr.ed.ac.uk/cogmhear/protected/clarity_cec2_data.tar 
+ https://data.cstr.ed.ac.uk/cogmhear/protected/clarity_cec2_data.tar [64GB]
 
 <p>AVSEC-4 uses a subset of the data released by the Clarity Enhancement Challenge 2 and a subset of HRIRs of the OlHeaD-HRTF Database from Oldenburg University. 
 Download the tar file above to obtain HRIRs, room simulation data and resampled (16000 Hz) impulse responses. </p>
@@ -73,7 +73,16 @@ cd data_preparation/avse4
 ```bash
 cd data_preparation/avse4
 python build_scenes.py
+```
+
+Tu build data locally single-run:
+```bash
 python render_scenes.py
+```
+Alternatively, if using multi-run:
+```bash
+#38 subjobs
+python render_scenes.py 'render_starting_chunk=range(0, 494, 13)' --multirun  
 ```
 
 #### Data structure
@@ -83,25 +92,25 @@ python render_scenes.py
     ├── dev
     │   ├── interferers
     │   ├── rooms 
-    │   │   ├─ ac
-    │   │   ├─ HOA_IRs_16k
-    │   │   ├─ rpf
-    │   ├── scenes
+    │   │   ├─ ac [20 MB]
+    │   │   ├─ HOA_IRs_16k [18.8 GB]
+    │   │   ├─ rpf [79 MB]
+    │   ├── scenes 
     │   ├── targets
     │   └── targets_video 
     ├── hrir
     │    ├─ HRIRs_MAT
-    ├── maskers_music
-    ├── maskers_noise
-    ├── maskers_speech
-    ├── metadata
+    ├── maskers_music [607 MB]
+    ├── maskers_noise [3.9 GB]
+    ├── maskers_speech [5.3 GB]
+    ├── metadata 
     └── train
     │    ├── interferers
     │    ├── rooms
-    │    │    ├─ ac
-    │    │    ├─ HOA_IRs_16k
-    │    │    ├─ rpf 
-    │    ├── scenes
+    │    │    ├─ ac [48 MB]
+    │    │    ├─ HOA_IRs_16k [45.2 GB]
+    │    │    ├─ rpf [189 MB]
+    │    ├── scenes [12 GB]
     │    ├── targets
     │    └── targets_video 
 ```
