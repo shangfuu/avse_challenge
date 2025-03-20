@@ -24,7 +24,7 @@ Follow instructions below to build the **AVSEC-4** dataset
 ```bash
 
 # Clone repository
-git clone https://github.com/cogmhear/avse-challenge.git
+git clone https://github.com/cogmhear/avse_challenge.git
 cd avse_challenge
 
 # Create & activate environment with conda, see https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html
