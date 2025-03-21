@@ -95,7 +95,7 @@ python render_scenes.py 'render_starting_chunk=range(0, 494, 13)' --multirun
     │   │   ├─ ac [20 MB]
     │   │   ├─ HOA_IRs_16k [18.8 GB]
     │   │   ├─ rpf [79 MB]
-    │   ├── scenes 
+    │   ├── scenes [12 GB]
     │   ├── targets
     │   └── targets_video 
     ├── hrir
@@ -110,7 +110,7 @@ python render_scenes.py 'render_starting_chunk=range(0, 494, 13)' --multirun
     │    │    ├─ ac [48 MB]
     │    │    ├─ HOA_IRs_16k [45.2 GB]
     │    │    ├─ rpf [189 MB]
-    │    ├── scenes [12 GB]
+    │    ├── scenes [141 GB]
     │    ├── targets
     │    └── targets_video 
 ```
