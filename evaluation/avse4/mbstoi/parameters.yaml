@@ -1,5 +1,5 @@
 #mbstoi
-sample_rate: 10000  # sample rate of proposed intelligibility measure in hz
+sample_rate: 16000  # sample rate of proposed intelligibility measure in hz #This is 10000 Hz in original MATLAB implementation
 n_frame: 256  # window support in samples
 fft_size_in_samples: 512  # fft size in samples
 n_third_octave_bands: 15  # number of one-third octave bands

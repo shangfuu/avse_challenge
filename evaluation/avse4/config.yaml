@@ -10,9 +10,8 @@ metrics_results: ${root}/objective_evaluation/ # output directory where results 
 fs: 16000
 
 objective_metrics:
-  #stoi/pesq
   fs: ${fs}
-  mode: 'wb'
+  #Add parameters for other objective metrics
 
 defaults:
   - override hydra/job_logging: disabled
