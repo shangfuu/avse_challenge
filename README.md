@@ -54,7 +54,7 @@ Please register for the AVSE challenge to obtain the download credentials: [regi
 
 Noise maskers and metadata of previous editions are available [here](data_preparation/avse1/README.md)
 
-- room simulation data, impulse responses and HRIRs from the [Clarity Challenge](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2) and [OlHeaD-HRTF Database](https://uol.de/mediphysik/downloads/hearingdevicehrtfs) :
+- room simulation data and impulse responses from the [Clarity Challenge (CEC2)](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2) and Head-Related Transfer Functions from [OlHeaD-HRTF Database](https://uol.de/mediphysik/downloads/hearingdevicehrtfs):
  https://data.cstr.ed.ac.uk/cogmhear/protected/clarity_cec2_data.tar [64GB]
 
 <p>AVSEC-4 uses a subset of the data released by the Clarity Enhancement Challenge 2 and a subset of HRIRs of the OlHeaD-HRTF Database from Oldenburg University. 
@@ -70,6 +70,9 @@ cd data_preparation/avse4
 3) Change root path defined in [data_preparation/avse4/config.yaml](data_preparation/avse4/config.yaml) to the location of the data.
 
 4) Prepare noisy data:
+
+Data preparation scripts were adapted from original code by [Clarity Enhancement Challenge 2](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2) under MIT License. 
+
 ```bash
 cd data_preparation/avse4
 python build_scenes.py
@@ -117,23 +120,35 @@ python render_scenes.py 'render_starting_chunk=range(0, 494, 13)' --multirun
 
 ## Baseline
 
-[code](./baseline/avse1/)
+AVSEC-4 baseline coming soon (late March 2025)
 
-[pretrained_model](https://data.cstr.ed.ac.uk/cogmhear/protected/avse1_baseline.ckpt)
+[//]: # ([code]&#40;./baseline/avse1/&#41;)
+
+[//]: # ()
+[//]: # ([pretrained_model]&#40;https://data.cstr.ed.ac.uk/cogmhear/protected/avse1_baseline.ckpt&#41;)
 
 The credentials to download the pretrained model are the same as the ones used to download the noise maskers and the metadata.
 
 ## Evaluation
 
-We provide a script to extract STOI and PESQ for the devset.
+**Binaural signals**
 
+We provide a script to compute MBSTOI from binaural signals. We use MBSTOI scripts from the [Clarity Challenge](https://github.com/claritychallenge/clarity/tree/main/clarity/evaluator/mbstoi). The original MBSTOI Matlab implementation is available [here.](http://ah-andersen.net/code/<http://ah-andersen.net/code/>)
+
+```
+cd evaluation/avse4/
+python objective_evaluation.py
+```
 Note: before running this script please edit the paths and file name formats defined in evaluation/avse1/config.yaml (see EDIT_THIS).
+
+**Monophonic signals**
+
+To compute objective metrics using monophonic signals (i.e., STOI and PESQ) please use evaluation scripts from in AVSEC-1. 
 
 ```
 cd evaluation/avse1/
 python objective_evaluation.py
 ```
-
 that require the following libraries:
 ```
 pip install pystoi==0.3.3
@@ -144,39 +159,41 @@ pip install pesq==0.0.4
 
 Current challenge
 
-- The 1st Audio-Visual Speech Enhancement Challenge (AVSE1)  
-[data_preparation](./data_preparation/avse1/)  
-[baseline](./baseline/avse1/)  
-[evaluation](./evaluation/avse1/)  
+- The 4th Audio-Visual Speech Enhancement Challenge (AVSEC-4)  
+[data_preparation](./data_preparation/avse4/)  
+[baseline](./baseline/avse4/) -TBA  
+[evaluation](./evaluation/avse4/)  
 
 ## License
 
 Videos are derived from:
 - [LRS3 dataset](https://mm.kaist.ac.kr/datasets/lip_reading/)  
-Creative Commons BY-NC-ND 4.0 license
+Creative Commons BY-NC-ND 4.0 license.
 
 Interferers are derived from:
 - [Clarity Enhancement Challenge (CEC1)](https://github.com/claritychallenge/clarity/tree/main/recipes/cec1)  
-Creative Commons Attribution Share Alike 4.0 International
-
-- [DEMAND](https://zenodo.org/record/1227121#.YpZHLRPMLPY):  
-Creative Commons Attribution 4.0 International
+Creative Commons Attribution Share Alike 4.0 International.
 
 - [DNS Challenge second edition](https://github.com/microsoft/DNS-Challenge).  
 Only Freesound clips were selected   
-Creative Commons 0 License
+Creative Commons 0 License.
 
 - [LRS3 dataset](https://mm.kaist.ac.kr/datasets/lip_reading/)  
-Creative Commons BY-NC-ND 4.0 license
+Creative Commons BY-NC-ND 4.0 license.
 
-- [MedleyDB audio](https://medleydb.weebly.com/)
-
+- [MedleyDB audio](https://medleydb.weebly.com/)   
 The dataset is licensed under CC BY-NC-SA 4.0.
 
-- [ESC-50 Dataset for Environmental Sound Classification](https://github.com/karolpiczak/ESC-50)
+Impulse responses and room simulation data derived from:
+- [Clarity Enhancement Challenge (CEC2)](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2)
+The dataset is licensed under CC BY-SA 4.0.
 
-Creative Commons Attribution-NonCommercial license
+Head-Related Transfer Functions derived from:
+-  [OlHeaD-HRTF Database](https://uol.de/mediphysik/downloads/hearingdevicehrtfs):
+The dataset is licensed under CC BY-NC-SA 4.0.
 
-Data preparation scripts were adapted from original code by [Clarity Challenge](https://github.com/claritychallenge/clarity). Modifications include: extracting target target audio from video and different settings for sampling rate (16kHz), number of channels (one channel) and scenes simulation (additive noise only, no room impulse responses and no room simulation).
+Scripts:
+
+Data preparation scripts were adapted from original code by [Clarity Enhancement Challenge 2](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2). Modifications include: extracting target audio from video and different settings for sampling rate (16kHz), no random starting time for target speaker and no head rotations.
 
 
