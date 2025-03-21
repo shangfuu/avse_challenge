@@ -42,23 +42,25 @@ pip install -r requirements.txt
 These scripts should be run in a unix environment and require an installed version of the [ffmpeg](https://www.ffmpeg.org) tool (required version 2.8; see Installation for the correct installation command).
 
 1) Download necessary data:
+
 - target videos:  
 Lip Reading Sentences 3 (LRS3) Dataset  
 https://mm.kaist.ac.kr/datasets/lip_reading/
 
 Follow the instructions on the website to obtain credentials to download the videos.
 
-- noise maskers and metadata (AVSEC-4):
+- Noise maskers and metadata (AVSEC-4):
 https://data.cstr.ed.ac.uk/cogmhear/protected/avsec4_data.tar  [4.1GB]
+
 Please register for the AVSE challenge to obtain the download credentials: [registration form](https://challenge.cogmhear.org/#/getting-started/register)
 
 Noise maskers and metadata of previous editions are available [here](data_preparation/avse1/README.md)
 
-- room simulation data and impulse responses from the [Clarity Challenge (CEC2)](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2) and Head-Related Transfer Functions from [OlHeaD-HRTF Database](https://uol.de/mediphysik/downloads/hearingdevicehrtfs):
+- Room simulation data and impulse responses from the [Clarity Challenge (CEC2)](https://github.com/claritychallenge/clarity/tree/main/recipes/cec2) and Head-Related Transfer Functions from [OlHeaD-HRTF Database](https://uol.de/mediphysik/downloads/hearingdevicehrtfs):
  https://data.cstr.ed.ac.uk/cogmhear/protected/clarity_cec2_data.tar [64GB]
 
-<p>AVSEC-4 uses a subset of the data released by the Clarity Enhancement Challenge 2 and a subset of HRIRs of the OlHeaD-HRTF Database from Oldenburg University. 
-Download the tar file above to obtain HRIRs, room simulation data and resampled (16000 Hz) impulse responses. </p>
+<p>AVSEC-4 uses a subset of the data released by the Clarity Enhancement Challenge 2 and a subset of HRTFs of the OlHeaD-HRTF Database from Oldenburg University. 
+Download the tar file above to obtain HRTFs, room simulation data and resampled (16000 Hz) impulse responses. </p>
 
 
 2) Set up data structure and create speech maskers (see EDIT_THIS to change local paths):
