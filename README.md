@@ -85,7 +85,8 @@ Tu build data locally single-run:
 python render_scenes.py
 ```
 Alternatively, if using multi-run:
-# python render_scenes.py 'render_starting_chunk=range(0, 494, 13)' --multirun  
+
+[//]: # (# python render_scenes.py 'render_starting_chunk=range&#40;0, 494, 13&#41;' --multirun  )
 ```bash
 #20 subjobs, starting in scene 0 and rendering 400 scenes
 python render_scenes.py 'render_starting_chunk=range(0, 400, 20)' --multirun  
