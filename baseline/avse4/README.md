@@ -31,9 +31,20 @@ python train.py data.root="./avsec4" data.num_channels=2 trainer.log_dir="./logs
 more arguments in conf/train.yaml
 ```
 
+### Download pretrained checkpoints
+```
+git lfs install
+git clone https://huggingface.co/cogmhear/avse4_baseline
+```
+
 ### Test
 ```bash
-python test.py data.root=./avsec4 data.num_channels=2 ckpt_path=pretrained.ckpt save_dir="./eval" model_uid="./avse4" 
+
+# evaluating binaural avse4 baseline
+python test.py data.root=./avsec4 data.num_channels=2 ckpt_path=avse4_baseline/pretrained.ckpt save_dir="./eval" model_uid="avse4_binaural" 
+
+# evaluating single channel avse4 baseline
+python test.py data.root=./avsec4 data.num_channels=1 ckpt_path=avse4_baseline/pretrained_mono.ckpt save_dir="./eval" model_uid="avse4_mono" 
 
 more arguments in conf/eval.yaml
 ```
