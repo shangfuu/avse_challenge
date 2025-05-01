@@ -79,7 +79,6 @@ Data preparation scripts were adapted from original code by [Clarity Enhancement
 cd data_preparation/avse4
 python build_scenes.py
 ```
-
 Tu build data locally single-run:
 ```bash
 python render_scenes.py
@@ -91,8 +90,13 @@ Alternatively, if using multi-run:
 #20 subjobs, starting in scene 0 and rendering 400 scenes
 python render_scenes.py 'render_starting_chunk=range(0, 400, 20)' --multirun  
 ```
+**Rendering binaural and/or monoaural signals**
 
-
+Scripts allow you to render binaural and monoaural signals. To choose which signals to render set the corresponding parameters in the [config](data_preparation/avse4/config.yaml) file to *True* for the set of signals you want to render:
+```bash
+  binaural_render: True
+  monoaural_render: True
+```
 #### Data structure
 
 ```bash
