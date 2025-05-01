@@ -95,6 +95,8 @@ class SceneRenderer:
         equalise_loudness,
         reference_channel,
         channel_norms,
+        binaural_render,
+        monoaural_render
     ):
         """Initialise SceneRenderer.
 
@@ -112,6 +114,8 @@ class SceneRenderer:
         self.equalise_loudness = equalise_loudness
         self.reference_channel = reference_channel
         self.channel_norms = channel_norms
+        self.binaural_render = binaural_render
+        self.monoaural_render = monoaural_render
 
         # Build the HOA rotator object with precomputed rotation matrices
         self.hoa_rotator = HOARotator(self.ambisonic_order, resolution=0.1)
@@ -444,55 +448,69 @@ class SceneRenderer:
         for interferer in interferers:
             interferer *= sw_snr * hoa.dB_to_gain(-desired_snr)
 
-        # Make mixture by summing target and interferers
+        # Make binaural mixture by summing target and interferers
         mix = [t + i for t, i in zip(targets, interferers)]
-        norm = np.max(mix)
-
-        left_channel = mix[0][:,0]
-        right_channel = mix[0][:,1]
-        mono_mix = [(ch1+ch2)/2 for ch1,ch2 in zip(left_channel, right_channel)]
+        # norm = np.max(mix)
 
         all_signals = np.concatenate((targets, interferers, mix))
         norm_scene = np.max(np.abs(all_signals))
 
         # Save all signal types for all channels
-        norms = self.channel_norms
         out_path = out_path.format(dataset=scene["dataset"])
         file_stem = f"{out_path}/{scene['scene']}"
 
-        # # export mono mix
-        # self.save_signal_16bit(
-        #     f"{file_stem}_mono_mix.wav", np.array(mono_mix), norms[0]
-        # )
-        # #export binaural mixes
-        # for channel, (t, i, m, norm) in enumerate(
-        #     zip(targets, interferers, mix, norms)
-        # ):
-        #     for sig, sig_type in zip([t, i, m], ["target", "interferer", "mix"]):
-        #         self.save_signal_16bit(
-        #             f"{file_stem}_{sig_type}.wav", sig, norm
-        #         )
+        #export mixes
+        # normalisation is done by scene
 
-        #norm by scene
-        # export mono mix
-        self.save_signal_16bit(
-            f"{file_stem}_mono_mix.wav", np.array(mono_mix), norm_scene
-        )
-        # export binaural mixes
-        for channel, (t, i, m) in enumerate(
-                zip(targets, interferers, mix)
-        ):
-            for sig, sig_type in zip([t, i, m], ["target", "interferer", "mix"]):
-                self.save_signal_16bit(
-                    f"{file_stem}_{sig_type}.wav", sig, norm_scene
-                )
+        if self.binaural_render:
+            # export binaural mixes
+            for channel, (t, i, m) in enumerate(
+                    zip(targets, interferers, mix)
+            ):
+                for sig, sig_type in zip([t, i, m], ["target", "interferer", "mix"]):
+                    self.save_signal_16bit(
+                        f"{file_stem}_{sig_type}.wav", sig, norm_scene
+                    )
 
+        # save monoaural target and interferer signals. Level normalised by scene
+        if self.monoaural_render:
+            mono_target = [(ch1 + ch2) / 2 for ch1, ch2 in zip(targets[0][:,0], targets[0][:,1])]
+            mono_interferers = [(ch1 + ch2) / 2 for ch1, ch2 in zip(interferers[0][:, 0], interferers[0][:, 1])]
+            mono_mix = [t + i for t, i in zip(mono_target, mono_interferers)]
+            mono_signals = np.concatenate((mono_target, mono_interferers, mono_mix))
+            # normalisation is done by scene
+            norm_mono_scene = np.max(np.abs(mono_signals))
 
-        # Save the anechoic reference signal. Level normalised to abs max 1.0
-        norm = np.max(np.abs(target_anechoic))
-        self.save_signal_16bit(
-            f"{file_stem}_target_anechoic.wav", target_anechoic, norm
-        )
+            # save monoaural target
+            self.save_signal_16bit(
+                f"{file_stem}_target_mono.wav", mono_target, norm_mono_scene
+            )
+            #save monoaural interferers
+            self.save_signal_16bit(
+                f"{file_stem}_interferer_mono.wav", mono_interferers, norm_mono_scene
+            )
+            #save mono mix
+            self.save_signal_16bit(
+                f"{file_stem}_mono_mix.wav", mono_mix, norm_mono_scene
+            )
+
+        #save anechoic signals to compute objective metrics:
+
+        # Save the anechoic binaural reference signal. Level normalised to abs max 1.0
+        if self.binaural_render:
+            norm_anechoic = np.max(np.abs(target_anechoic))
+            self.save_signal_16bit(
+                f"{file_stem}_target_anechoic.wav", target_anechoic, norm_anechoic
+            )
+
+        #save monoaural signal from anechoic signal
+        if self.monoaural_render:
+            mono_anechoic = [(ch1+ch2)/2 for ch1,ch2 in zip(target_anechoic[:, 0], target_anechoic[:, 1])]
+            # save monoaural target anechoic. Level normalised to abs max 1.0
+            norm_anechoic = np.max(np.abs(mono_anechoic))
+            self.save_signal_16bit(
+                f"{file_stem}_target_mono_anechoic.wav", mono_anechoic, norm_anechoic
+            )
 
         # Export video
         logger.info("generating scene: %s in %s dataset", scene["scene"],scene["dataset"])

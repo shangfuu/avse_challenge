@@ -1,5 +1,5 @@
 path:
-  root: /tmp/avsec4/
+  root: /disk/data1/aaldana/avsec4/avsec4_data/
   metadata_dir: ${path.root}/metadata/
 
 
@@ -25,10 +25,10 @@ scene_datasets:
     n_scenes: 34525
     room_selection: SEQUENTIAL
     scene_start_index: 1
-  dev:
-    n_scenes: 3365
-    room_selection: SEQUENTIAL
-    scene_start_index: 34526
+#  dev:
+#    n_scenes: 3365
+#    room_selection: SEQUENTIAL
+#    scene_start_index: 34526
 
 target:
   target_speakers: ${path.metadata_dir}/target_speech_list.json
@@ -67,7 +67,7 @@ listener:
 
 # Render scenes
 render_starting_chunk: 0  # there are (6000 train + 2500 dev) / (12 + 5) = 500 trunks in total. If multi_run, should be 0, 10, 20, 30, ..., 490 if render_n_chunk_to_process=10
-render_n_chunk_to_process: 500 #50  # i.e. (12 train + 5 dev) * 10 scenes to render. If not multi_run, set 50
+render_n_chunk_to_process: 10 #500 #50  # i.e. (12 train + 5 dev) * 10 scenes to render. If not multi_run, set 50
 
 scene_renderer:
   train:
@@ -103,6 +103,8 @@ render_params:
   equalise_loudness: False
   reference_channel: 0
   channel_norms: [6.0] #not used in AVSEC
+  binaural_render: True
+  monoaural_render: True
 hydra:
   run:
     dir: .
