@@ -26,7 +26,7 @@ data_root
 
 ### Train
 ```bash
-python train.py data.root="./avsec4" data.num_channels=2 trainer.log_dir="./logs" data.batch_size=8 trainer.accelerator gpu trainer.gpus 1
+python train.py data.root="./avsec4" data.num_channels=2 trainer.log_dir="./logs" data.batch_size=8 trainer.accelerator=gpu trainer.gpus=1
 
 more arguments in conf/train.yaml
 ```
