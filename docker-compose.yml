@@ -1,0 +1,26 @@
+services:
+  lab:
+    # image: shangfu/cuda11.3_cudnn8:mvc
+    image: shangfu/cuda12.6:root
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - DISPLAY=$DISPLAY
+    stdin_open: true
+    tty: true
+    volumes: 
+      - .:/root/code
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /mnt/sda/DATASETS:/data/
+      - /home/shawn/.ssh:/home/user/.ssh
+    ports:
+      - "5004:5004"
+      - "5005:5005"
+    command: "nvidia-smi"
+    ipc: host
+    deploy:
+      resources:
+        limits:
+          memory: 225G  # Hard limit - adjust based on your system's available RAM
+        reservations:
+          memory: 5G   # Soft reservation
